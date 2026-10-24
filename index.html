@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Smart Energy Monitor</title>
+<style>
+*{box-sizing:border-box}
+body{
+  margin:0;font-family:Arial,sans-serif;
+  background:#eef3f8;color:#17243a;
+}
+header{
+  background:#123b66;color:white;
+  padding:22px 16px;text-align:center;
+}
+header h1{font-size:23px;margin:0 0 8px}
+header p{margin:0;font-size:13px}
+main{max-width:800px;margin:auto;padding:18px}
+.notice{
+  background:#fff3cd;padding:12px;border-radius:10px;
+  font-size:13px;line-height:1.5;margin-bottom:16px;
+}
+.grid{
+  display:grid;grid-template-columns:repeat(2,1fr);gap:12px;
+}
+.card{
+  background:white;padding:18px;border-radius:14px;
+  box-shadow:0 3px 12px #152a4010;
+}
+.card p{margin:0;color:#64748b;font-size:13px}
+.value{font-size:26px;font-weight:bold;margin:12px 0}
+.unit{font-size:14px;color:#64748b}
+button{
+  border:0;border-radius:9px;padding:13px;
+  background:#1265b3;color:white;font-size:15px;
+  width:100%;margin-top:16px;
+}
+#warning{
+  margin-top:14px;background:#dcfce7;
+  padding:14px;border-radius:10px;
+}
+footer{text-align:center;padding:20px;color:#64748b;font-size:12px}
+@media(max-width:360px){
+  .grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<header>
+  <h1>⚡ Smart Energy Monitor</h1>
+  <p>Electrical Engineering Project | Third Year</p>
+</header>
+
+<main>
+  <div class="notice">
+    DEMO MODE: All readings are simulated.
+    This website is not connected to a real electrical meter.
+  </div>
+
+  <section class="grid">
+    <div class="card">
+      <p>Voltage</p>
+      <div class="value"><span id="voltage">230</span>
+        <span class="unit">V</span></div>
+    </div>
+    <div class="card">
+      <p>Current</p>
+      <div class="value"><span id="current">2.0</span>
+        <span class="unit">A</span></div>
+    </div>
+    <div class="card">
+      <p>Power</p>
+      <div class="value"><span id="power">460</span>
+        <span class="unit">W</span></div>
+    </div>
+    <div class="card">
+      <p>Energy Used</p>
+      <div class="value"><span id="energy">0.46</span>
+        <span class="unit">kWh</span></div>
+    </div>
+  </section>
+
+  <div id="warning">✅ Demo status: Normal</div>
+  <button onclick="updateReadings()">Refresh Demo Readings</button>
+  <footer>Smart Energy Monitoring System</footer>
+</main>
+
+<script>
+function updateReadings(){
+  const voltage = 220 + Math.floor(Math.random()*21);
+  const current = +(0.5 + Math.random()*4.5).toFixed(2);
+  const power = voltage * current;
+  const energy = power / 1000; // One simulated hour
+
+  document.getElementById("voltage").textContent = voltage;
+  document.getElementById("current").textContent =
+    current.toFixed(2);
+  document.getElementById("power").textContent =
+    power.toFixed(1);
+  document.getElementById("energy").textContent =
+    energy.toFixed(3);
+
+  const warning = document.getElementById("warning");
+  if(power > 1000){
+    warning.textContent = "⚠️ Demo alert: High power usage!";
+    warning.style.background = "#fee2e2";
+  }else{
+    warning.textContent = "✅ Demo status: Normal";
+    warning.style.background = "#dcfce7";
+  }
+}
+</script>
+</body>
+</html>
